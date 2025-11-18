@@ -17,7 +17,7 @@ import { Header } from "../../../shared/components/header/header";
     Footer        // ✅ Habilita el uso de <app-footer>
   ],
   templateUrl: './layout.html',
-  styleUrl: './layout.css',
+  styleUrl: './layout.scss',
 })
 export class Layout {
   // Aquí no necesitas código adicional por ahora

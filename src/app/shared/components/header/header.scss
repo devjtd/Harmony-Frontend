@@ -1,0 +1,81 @@
+/* ======================== */
+/* ===== VARIABLES PARA HEADER ===== */
+/* ======================== */
+/* CORRECCIÓN: Se define :root dentro de :host para forzar la carga de las variables 
+    dentro del alcance del componente si no se pueden definir globalmente.
+    Alternativamente, si el componente Header NO tiene ViewEncapsulation.None, 
+    usar :host es suficiente.
+*/
+:host {
+    --header-fondo: #000000;
+    --header-texto-titulo: #ffffff;
+    --header-texto-navegacion: #ffffff;
+    --header-texto-tarjeta: #000000;
+    --header-enlace-activo-color: #f7d002;
+    --header-enlace-activo-fondo: rgba(255, 255, 255, 0.1);
+}
+
+/* ======================== */
+/* ===== ESTILOS DE HEADER ===== */
+/* ======================== */
+.header-personalizado {
+    /* Usando la variable definida en :host */
+    background-color: var(--header-fondo);
+}
+
+.header-personalizado .nav-link {
+    color: var(--header-texto-navegacion) !important;
+}
+
+/* Estilo para el enlace activo */
+.header-personalizado .nav-link.active {
+    color: var(--header-enlace-activo-color) !important;
+    font-weight: bold;
+
+}
+
+.header-personalizado .h2,
+.header-personalizado .h1 {
+    color: var(--header-texto-titulo) !important;
+}
+
+.header-personalizado .navbar-toggler-icon {
+    /* SVG del icono de hamburguesa, mantenido */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+/* ======================== */
+/* ===== ESTILOS DE BOTONES EN HEADER ===== */
+/* ======================== */
+
+/* Estilos del botón ¡Inscríbete! */
+.btn-brillo {
+    background-color: #f7d002;
+    color: #333;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-brillo:hover {
+    background-color: #f7dc57;
+    box-shadow: 0 0 10px 5px rgba(214, 214, 74, 0.7);
+    transform: translateY(-2px);
+}
+
+/* Estilos para el botón Iniciar sesión */
+.header-personalizado .btn-link {
+    color: #724fd2 !important;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.header-personalizado .btn-link:hover {
+    color: #3737b9 !important;
+    background-color: transparent;
+}

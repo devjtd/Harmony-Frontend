@@ -29,7 +29,7 @@ import { BlogService, Noticia } from '../../../services/blog-service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './blog.html',
-  styleUrls: ['./blog.css']
+  styleUrls: ['./blog.scss']
 })
 export class Blog implements OnInit {
 

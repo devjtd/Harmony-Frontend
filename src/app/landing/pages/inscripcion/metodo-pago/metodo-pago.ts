@@ -9,7 +9,7 @@ import { DatosPagoForm, InscripcionPayload, InscripcionService } from '../../../
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './metodo-pago.html',
-  styleUrl: './metodo-pago.css',
+  styleUrl: './metodo-pago.scss',
 })
 export class MetodoPago implements OnInit {
   private inscripcionService = inject(InscripcionService);

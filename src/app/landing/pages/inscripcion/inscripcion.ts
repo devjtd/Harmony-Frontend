@@ -11,7 +11,7 @@ import { ProgressBar } from './progress-bar';
   // Se añade ProgressBar a los imports
   imports: [CommonModule, RouterOutlet, ProgressBar],
   templateUrl: './inscripcion.html',
-  styleUrls: ['./inscripcion.css']
+  styleUrls: ['./inscripcion.scss']
 })
 export class Inscripcion implements OnInit {
   private inscripcionService = inject(InscripcionService);

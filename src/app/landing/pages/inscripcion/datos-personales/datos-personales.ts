@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './datos-personales.html',
-  styleUrl: './datos-personales.css',
+  styleUrl: './datos-personales.scss',
 })
 export class DatosPersonales implements OnInit {
   private inscripcionService = inject(InscripcionService);

@@ -13,7 +13,7 @@ import { Profesor, ProfesorService } from '../../../services/profesor-service';
   standalone: true,
   imports: [CommonModule, FormsModule], 
   templateUrl: './profesores.html',
-  styleUrls: ['./profesores.css']
+  styleUrls: ['./profesores.scss']
 })
 
 export class Profesores implements OnInit {

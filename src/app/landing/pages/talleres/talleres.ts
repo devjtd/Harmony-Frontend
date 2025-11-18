@@ -15,7 +15,7 @@ import { TallerService, TallerDetallado, Horario, Profesor } from '../../../serv
   // Si usas standalone, asegúrate de que provideHttpClient() esté en tu app.config.ts
   imports: [CommonModule, RouterLink], 
   templateUrl: './talleres.html',
-  styleUrls: ['./talleres.css'],
+  styleUrls: ['./talleres.scss'],
   providers: [CurrencyPipe, DatePipe, TallerService] // Proveer los pipes y el servicio
 })
 export class Talleres implements OnInit {
