@@ -1,0 +1,37 @@
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                <h1 class="mt-3">¡Inscripción y Pago Confirmados! 🎉</h1>
+                <p class="lead text-muted">¡Bienvenido a Harmony! Tus credenciales de acceso han sido generadas
+                    automáticamente.</p>
+            </div>
+
+            <div class="card p-4 shadow-lg card-credenciales mb-4">
+                <h3 class="mb-4 text-primary">Tus Credenciales de Acceso</h3>
+
+                <div class="mb-4">
+                    <p class="mb-1 fw-semibold">Correo Electrónico (Usuario):</p>
+                    <span class="credencial-valor fs-5">
+                        {{ correo || 'ejemplo@correo.com' }} 
+                    </span>
+                </div>
+
+                <div class="mb-4">
+                    <p class="mb-1 fw-semibold">Contraseña Temporal Generada:</p>
+                    <span class="credencial-valor fs-5 text-danger">
+                        {{ contrasena || 'Hrmony-1234' }}
+                    </span>
+                </div>
+
+                <div class="alert alert-warning mt-3" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    **IMPORTANTE:** Guarda esta contraseña temporal en un lugar seguro. ¡La necesitarás para
+                    ingresar por primera vez! Te recomendamos cambiarla inmediatamente después de iniciar sesión.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

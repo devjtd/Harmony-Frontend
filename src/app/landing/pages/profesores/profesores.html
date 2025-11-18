@@ -1,0 +1,30 @@
+<main class="container my-5">
+    <h1 class="text-center mb-5">Conoce a nuestros Profesores</h1>
+
+    <div class="d-flex flex-wrap justify-content-around">
+
+        <div class="flip-card-container" *ngFor="let profesor of profesores">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="card border-profesor text-center">
+                        <img [src]="profesor.fotoUrl" class="card-img-top img-fluid"
+                            [alt]="'Foto de ' + profesor.nombreCompleto">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ profesor.nombreCompleto }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card-back">
+                    <p class="sobre-mi">
+                        {{ profesor.informacion }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 text-center mt-5" *ngIf="profesores.length === 0">
+            <p class="lead text-muted">Aún no hay profesores registrados.</p>
+        </div>
+    </div>
+
+</main>

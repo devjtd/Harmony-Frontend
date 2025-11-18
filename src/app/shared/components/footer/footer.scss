@@ -1,0 +1,35 @@
+/* ======================== */
+/* ===== VARIABLES PARA FOOTER ===== */
+/* ======================== */
+/* CORRECCIÓN: Se define el ámbito de las variables dentro del host del componente. */
+:host {
+    --footer-fondo: #000000;
+    --footer-texto-general: #ffffff;
+    --footer-texto-enlaces: #ffffff;
+}
+
+/* ======================== */
+/* ===== ESTILOS DE FOOTER ===== */
+/* ======================== */
+/* Usamos el selector de clase en el elemento footer. */
+footer.bg-dark {
+    background-color: var(--footer-fondo) !important;
+}
+
+/* Selectores para aplicar el color general del texto */
+footer.text-white,
+footer h5,
+footer p,
+footer li,
+footer span {
+    color: var(--footer-texto-general) !important;
+}
+
+/* Selectores para aplicar el color de los enlaces (íconos y textos) */
+footer a {
+    color: var(--footer-texto-enlaces) !important;
+}
+
+.marginSiguenos {
+    margin-right: 1.3rem;
+}

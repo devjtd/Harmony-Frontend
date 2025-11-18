@@ -1,0 +1,61 @@
+<div class="container my-5">
+    <h1 class="text-center mb-4">Contáctanos</h1>
+    <p class="text-center text-muted mb-5">¡Estamos aquí para ayudarte! Completa el siguiente formulario o
+        visítanos.</p>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card p-4 shadow-sm" style="background-color: #f8f1e9;">
+
+                <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span>{{ successMessage }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span>{{ errorMessage }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <form #contactForm="ngForm" (ngSubmit)="enviarMensaje(contactForm.value)">
+                    <h4 class="mb-4">Envíanos un mensaje</h4>
+
+                    <div class="mb-3">
+                        <label for="nombre-contacto" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre-contacto" name="nombre"
+                            placeholder="Tu nombre" required [(ngModel)]="contactoData.nombre">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email-contacto" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email-contacto" name="correo"
+                            placeholder="ejemplo@correo.com" required [(ngModel)]="contactoData.correo">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="asunto-contacto" class="form-label">Asunto</label>
+                        <select class="form-select" id="asunto-contacto" name="asunto" required
+                            [(ngModel)]="contactoData.asunto">
+                            <option value="" disabled selected>Selecciona un asunto...</option>
+                            <option value="Información sobre talleres/cursos">Información sobre talleres/cursos</option>
+                            <option value="Pregunta sobre la inscripción">Pregunta sobre la inscripción</option>
+                            <option value="Consulta sobre un profesor">Consulta sobre un profesor</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="mensaje-contacto" class="form-label">Mensaje</label>
+                        <textarea class="form-control" id="mensaje-contacto" name="mensaje" rows="5"
+                            placeholder="Escribe tu mensaje aquí..." required
+                            [(ngModel)]="contactoData.mensaje"></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn-formulario btn-lg" [disabled]="!contactForm.valid">
+                            Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

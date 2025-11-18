@@ -1,0 +1,175 @@
+/* ======================== */
+/* ===== VARIABLES PARA DASHBOARD ===== */
+/* ======================== */
+:root {
+    /* General */
+    --dashboard-fondo-general: #f8f9fa;
+
+    /* Sidebar */
+    --sidebar-ancho: 250px;
+    --sidebar-fondo: #343a40; /* Negro oscuro */
+    --sidebar-texto: rgba(255, 255, 255, 0.8);
+    --sidebar-hover-fondo: #495057;
+    --sidebar-hover-texto: white;
+    --sidebar-borde: 1px solid #495057;
+
+    /* Logout Link */
+    --logout-color: #dc3545; /* Rojo de Bootstrap */
+
+    /* Contenido Principal */
+    --contenido-fondo: white;
+    --contenido-sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ======================== */
+/* ===== ESTILOS DE COMPONENTES ===== */
+/* ======================== */
+
+/* Estilos de la página */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Sidebar (Barra Lateral) */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    background-color:  #343a40;;
+    color: white;
+    z-index: 1000;
+}
+
+/* Logo y Título en el Sidebar */
+.header-logo-dashboard {
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #495057;
+    margin-bottom: 15px;
+}
+
+/* Enlaces de Navegación del Sidebar */
+.nav-link-item {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 15px 20px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-link-item:hover, .nav-link-item.active {
+    background-color: #495057;
+    color: white;
+}
+
+/* Estilo para el botón de Salir (Logout) */
+.nav-link-logout {
+    color: #dc3545;
+}
+
+.nav-link-logout:hover {
+    background-color: #495057;
+    color: #dc3545;
+}
+
+/* Contenido Principal */
+.main-content {
+    margin-left: 250px; /* Desplaza el contenido principal */
+    padding: 20px;
+}
+
+/* Contenedor del Calendario */
+.calendar-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de la tabla (Bootstrap ya maneja la mayoría) */
+.table-dark {
+    --bs-table-bg: #212529;
+    color: white;
+}
+
+/* ======================== */
+/* ===== ESTILOS ESPECÍFICOS PARA CAMBIO DE CONTRASEÑA (password.html) ===== */
+/* ======================== */
+
+.password-container {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.password-container .form-control {
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.btn-confirmar-password {
+    background-color: #007bff; /* Usamos el azul primario de Bootstrap para la acción */
+    border-color: #007bff;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-confirmar-password:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* ======================== */
+/* ===== ESTILOS ADICIONALES PARA TÍTULOS DE HORARIO ===== */
+/* ======================== */
+
+/* Define un color que resalte, como el morado oscuro que usas en el botón de login */
+.text-harmony-title {
+    color: #5e3ea1 !important; /* Morado/Púrpura más oscuro para contraste */
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Opcional: si el sidebar usa el morado, puedes usar un color vibrante para el título principal */
+.main-content h1.text-harmony-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem !important;
+}
+
+.main-content h2.text-harmony-title {
+    font-size: 1.8rem;
+    border-bottom: 2px solid #724fd2; /* Línea de color debajo del subtítulo */
+    padding-bottom: 5px;
+}
+
+
+/* Estilos específicos para el Panel de Clientes de Administración (extraídos del HTML) */
+
+#registro-cliente {
+    background-color: #f8f1e9; /* Un color suave para destacar la sección de registro */
+}
+
+.text-harmony-title {
+    color: #5e3ea1 !important;
+    font-weight: 700;
+}
+
+.main-content {
+    /* Ajusta el padding para dar espacio al contenido */
+    padding-top: 20px;
+    margin-left: 250px;
+
+}
+
+/* Estilo para el nombre de usuario debajo del logo en el sidebar */
+.user-info {
+    color: #fff;
+    padding: 5px 15px 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+}

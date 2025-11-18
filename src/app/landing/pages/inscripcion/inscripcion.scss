@@ -1,0 +1,86 @@
+/* ... [Mantenemos las variables de Header y Footer] ... */
+
+/* ======================== */
+/* ===== VARIABLES DE FORMS & COLORES DE TEMA ===== */
+/* ======================== */
+:root {
+    /* Color principal de la aplicación/formularios (verde oliva) */
+    --form-primary: #556B2F; 
+    /* Color de acento para títulos/iconos (un verde más claro para contraste) */
+    --form-heading-color: #6B8E23;
+    /* Color del fondo de las tarjetas del formulario */
+    --form-card-bg: #f8f1e9;
+    /* Color de fondo para el resumen (Paso 3) */
+    --summary-card-bg: #e6e0d9;
+}
+
+
+/* ======================== */
+/* ===== ESTILOS DE COMPONENTES ===== */
+/* ======================== */
+/* ... [Mantenemos Header y Footer] ... */
+
+/* Estilos específicos para la tarjeta de credenciales */
+.card-credenciales {
+    background-color: #f0f8ff;
+    border-left: 5px solid #007bff;
+}
+
+.credencial-valor {
+    font-family: monospace;
+    font-weight: bold;
+    color: #333;
+    background-color: #e9ecef;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Estilos adicionales para los contenedores dinámicos */
+/* Se utiliza el color de acento para el borde de la selección de horarios */
+.schedule-section {
+    transition: all 0.3s ease-in-out;
+    border-left: 5px solid var(--form-heading-color) !important;
+}
+
+/* Color del checkbox marcado */
+.form-check-input:checked {
+    background-color: var(--form-primary);
+    border-color: var(--form-primary);
+}
+
+/* ESTILOS DE BOTONES Y TEXTOS DEL FORMULARIO */
+
+/* Titulos de pasos y texto primario */
+.text-primary {
+    color: var(--form-primary) !important;
+}
+
+/* Botón principal (Continuar, Pagar, etc.) */
+.btn-formulario {
+    background-color: var(--form-primary);
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem; /* Hacemos los botones un poco más grandes */
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+.btn-formulario:hover:not(:disabled) {
+    background-color: var(--form-heading-color); /* Usamos el color de acento al pasar el mouse */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-formulario:disabled {
+    opacity: 0.7; /* Suavizamos el disabled */
+    cursor: not-allowed;
+}
+
+/* Ajuste de colores de Bootstrap para que coincidan con el tema */
+.text-success { color: var(--form-heading-color) !important; } /* Usamos color de acento para éxito */
+.bg-success { background-color: var(--form-primary) !important; }
+.bg-secondary { background-color: #ced4da !important; }

@@ -1,0 +1,134 @@
+/* ======================== */
+/* ===== VARIABLES PARA PÁGINA DE LOGIN (DEFINIDAS EN EL HOST) ===== */
+/* ======================== */
+:host {
+    /* Estilos globales que afectan al contenedor del componente */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Variables CSS */
+    --login-fondo-texto: #ffffff;
+    --login-card-fondo: #ffffff;
+    --login-card-titulo: #1a1a1a;
+    --login-card-sombra: 0 10px 25px rgba(0, 0, 0, 0.2);
+    --login-btn-fondo: #724fd2;
+    --login-btn-fondo-hover: #5e3ea1;
+    --login-btn-texto: white;
+    --login-enlace-color: #007bff;
+    --login-enlace-color-hover: #0056b3;
+    --login-label-color: #343a40;
+    --login-placeholder-color: #6c757d;
+}
+
+/* Estilos para el Contenedor Principal (Donde se carga la imagen de fondo) */
+.login-container {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    flex-grow: 1;
+    /* Asegura que el contenedor ocupe el espacio restante y aplique el vh-100 */
+}
+
+/* Header (Logo y Título Superior Izquierda) */
+.header-login {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 10;
+}
+
+.header-login .h2 {
+    color: var(--login-fondo-texto);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.header-login img {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Contenedor y Tarjeta de Login (Centrado) */
+.login-card {
+    background-color: var(--login-card-fondo);
+    border-radius: 20px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: var(--login-card-sombra);
+    border: none;
+}
+
+/* Ajuste del padding para estirar campos de texto */
+.login-card .card-body {
+    padding: 3.5rem 2.5rem !important;
+}
+
+.login-card .card-title {
+    color: var(--login-card-titulo);
+    font-weight: 800;
+    font-size: 2.5rem;
+    letter-spacing: -0.5px;
+}
+
+/* Formulario */
+.form-label {
+    font-weight: 700;
+    color: var(--login-label-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    padding: 12px 18px;
+    font-size: 1rem;
+    color: var(--login-label-color);
+}
+
+.form-control::placeholder {
+    color: var(--login-placeholder-color);
+    opacity: 0.8;
+}
+
+.form-control:focus {
+    border-color: var(--login-btn-fondo);
+    box-shadow: 0 0 0 0.2rem rgba(114, 79, 210, 0.4);
+    outline: none;
+}
+
+/* Botón de Acceso */
+.btn-login {
+    background-color: var(--login-btn-fondo);
+    border-color: var(--login-btn-fondo);
+    color: var(--login-btn-texto);
+    padding: 15px 25px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 5px 15px rgba(114, 79, 210, 0.3);
+}
+
+.btn-login:hover {
+    background-color: var(--login-btn-fondo-hover);
+    border-color: var(--login-btn-fondo-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(114, 79, 210, 0.4);
+}
+
+/* Enlaces (Solo Olvidé Contraseña) */
+.forgot-password-link {
+    color: var(--login-enlace-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+    color: var(--login-enlace-color-hover);
+    text-decoration: underline;
+}

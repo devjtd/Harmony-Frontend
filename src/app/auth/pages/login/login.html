@@ -1,0 +1,73 @@
+<div class="login-container d-flex justify-content-center align-items-center vh-100"
+    [style.backgroundImage]="'url(/fondoLogin.jpg)'">
+
+    <div class="header-login">
+        <a routerLink="/" class="d-flex align-items-center text-decoration-none">
+            <img src="/logo.png" alt="Logo Harmony" width="60" height="60" class="me-2">
+            <h1 class="h2 mb-0 text-white">Harmony</h1>
+        </a>
+    </div>
+
+    <div class="card login-card">
+        <div class="card-body p-5">
+            <h2 class="card-title text-center mb-4">Iniciar Sesión</h2>
+
+            <!-- Mensaje de error global -->
+            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                {{ errorMessage }}
+                <button type="button" class="btn-close" (click)="clearError()" aria-label="Close"></button>
+            </div>
+
+            <form #loginForm="ngForm" (ngSubmit)="iniciarSesion(loginForm)" novalidate>
+                <!-- Campo Email -->
+                <div class="mb-3">
+                    <label for="correo" class="form-label">
+                        Correo Electrónico <span class="text-danger">*</span>
+                    </label>
+                    <input type="email" class="form-control" [class.is-invalid]="emailInvalid" id="correo" name="email"
+                        placeholder="tu@ejemplo.com" required [(ngModel)]="loginData.email" (blur)="validateEmail()"
+                        (input)="emailInvalid = false; clearError()" [disabled]="isLoading">
+                    <div class="invalid-feedback" *ngIf="emailInvalid">
+                        {{ emailErrorMsg }}
+                    </div>
+                </div>
+
+                <!-- Campo Contraseña -->
+                <div class="mb-4">
+                    <label for="contrasena" class="form-label">
+                        Contraseña <span class="text-danger">*</span>
+                    </label>
+                    <input type="password" class="form-control" [class.is-invalid]="passwordInvalid" id="contrasena"
+                        name="password" placeholder="********" required [(ngModel)]="loginData.password"
+                        (blur)="validatePassword()" (input)="passwordInvalid = false; clearError()"
+                        [disabled]="isLoading">
+                    <div class="invalid-feedback" *ngIf="passwordInvalid">
+                        {{ passwordErrorMsg }}
+                    </div>
+                </div>
+                
+                <!-- Botón de Login -->
+                <div class="d-grid gap-2 mb-3">
+                    <button type="submit" class="btn btn-primary btn-login"
+                        [disabled]="!loginForm.valid || isLoading || emailInvalid || passwordInvalid">
+                        <span *ngIf="!isLoading">
+                            Acceder
+                        </span>
+                        <span *ngIf="isLoading">
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            Verificando...
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Link de recuperación -->
+                <p class="text-center mt-3">
+                    <a routerLink="/auth/forgot-password" class="text-decoration-none forgot-password-link">
+                        ¿Olvidaste tu contraseña?
+                    </a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

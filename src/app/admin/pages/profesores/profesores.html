@@ -1,0 +1,139 @@
+<div class="main-content">
+    <h1 class="mb-4 text-harmony-title">Gestión de Profesores</h1>
+    <hr>
+
+    <section id="registro-profesor" class="mb-5 p-4 border rounded shadow-sm">
+        <h3 class="text-harmony-title mb-4"><i class="bi bi-person-plus me-2"></i> Añadir Nuevo Profesor</h3>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <form (ngSubmit)="registrarProfesor()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="mb-3 text-secondary">Datos del Profesor</h5>
+                            <div class="mb-3">
+                                <label for="nombreProfesor" class="form-label">Nombre Completo</label>
+                                <input type="text" [(ngModel)]="nuevoProfesor.nombreCompleto" name="nombreCompleto" class="form-control"
+                                    id="nombreProfesor" placeholder="Ej: Sofía López" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="emailProfesor" class="form-label">Correo Electrónico</label>
+                                <input type="email" [(ngModel)]="nuevoProfesor.correo" name="correo" class="form-control" id="emailProfesor"
+                                    placeholder="profesor@harmony.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefonoProfesor" class="form-label">Teléfono</label>
+                                <input type="tel" [(ngModel)]="nuevoProfesor.telefono" name="telefono" class="form-control" id="telefonoProfesor"
+                                    placeholder="Ej: 999 888 777" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fotoUrlProfesor" class="form-label">URL de la Foto</label>
+                                <input type="url" [(ngModel)]="nuevoProfesor.fotoUrl" name="fotoUrl" class="form-control" id="fotoUrlProfesor"
+                                    placeholder="Ej: https://miservidor.com/img/profesor.jpg">
+                            </div>
+                            <div class="mb-3">
+                                <label for="informacionProfesor" class="form-label">Información / Descripción</label>
+                                <textarea [(ngModel)]="nuevoProfesor.informacion" name="informacion" class="form-control" id="informacionProfesor"
+                                    rows="3" placeholder="Ej: Profesor de Guitarra Clásica con 10 años de experiencia..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-check-circle me-2"></i> Registrar Profesor
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="lista-profesores" class="mt-5">
+        <h3 class="text-harmony-title mb-4"><i class="bi bi-list-columns-reverse me-2"></i> Listado de Profesores</h3>
+        <div class="mb-3 d-flex align-items-center">
+            <input type="text" class="form-control w-50" id="searchFilterProfesor"
+                placeholder="Buscar por nombre, taller o correo...">
+            <button class="btn btn-secondary ms-2"><i class="bi bi-search"></i> Buscar</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 80px;">Foto</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let profesor of profesores" style="vertical-align: middle;">
+                        <td>
+                            <img [src]="getFoto(profesor)" (error)="onImageError($event)" alt="Foto"
+                                style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;" />
+                        </td>
+                        <td>{{profesor.nombreCompleto}}</td>
+                        <td>{{profesor.correo}}</td>
+                        <td>{{profesor.telefono}}</td>
+
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal"
+                                data-bs-target="#editProfesorModal" (click)="cargarEdicion(profesor)">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+
+                            <button class="btn btn-sm btn-outline-danger" (click)="eliminarProfesor(profesor.id)">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div *ngIf="profesorAEditar" class="modal fade" id="editProfesorModal" tabindex="-1" aria-labelledby="editProfesorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="editProfesorModalLabel">Editar Información del Profesor</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form (ngSubmit)="guardarEdicion()">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="edit-nombreProfesor" class="form-label">Nombre Completo</label>
+                            <input type="text" [(ngModel)]="profesorAEditar.nombreCompleto" name="edit-nombreCompleto"
+                                class="form-control" id="edit-nombreProfesor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-emailProfesor" class="form-label">Correo Electrónico</label>
+                            <input type="email" [(ngModel)]="profesorAEditar.correo" name="edit-correo" class="form-control" id="edit-emailProfesor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-telefonoProfesor" class="form-label">Teléfono</label>
+                            <input type="tel" [(ngModel)]="profesorAEditar.telefono" name="edit-telefono"
+                                class="form-control" id="edit-telefonoProfesor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-fotoUrlProfesor" class="form-label">URL de la Foto</label>
+                            <input type="url" [(ngModel)]="profesorAEditar.fotoUrl" name="edit-fotoUrl" class="form-control" id="edit-fotoUrlProfesor">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-informacionProfesor" class="form-label">Información / Descripción</label>
+                            <textarea [(ngModel)]="profesorAEditar.informacion" name="edit-informacion"
+                                class="form-control" id="edit-informacionProfesor" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                            <i class="bi bi-save me-1"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

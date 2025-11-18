@@ -1,0 +1,69 @@
+<header class="p-3 header-personalizado">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <img [src]="'/logo.png'" alt="Logo Harmony" width="50" height="50" class="me-2">
+            <h1 class="h2 mb-0">Harmony</h1>
+        </div>
+
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="d-flex align-items-center ms-auto d-none d-lg-flex">
+            <a routerLink="/inscripcion" class="btn-brillo me-2 fw-bold">¡Inscríbete!</a>
+            <a routerLink="/auth/login" class="btn btn-link text-decoration-none text-black">Iniciar sesión</a>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg d-flex justify-content-center">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        Inicio
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/acerca" routerLinkActive="active">
+                        Acerca de nosotros
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/talleres" routerLinkActive="active">
+                        Talleres/Cursos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/profesores" routerLinkActive="active">
+                        Profesores
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/inscripcion" routerLinkActive="active">
+                        Inscripción
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/blog" routerLinkActive="active">
+                        Blog/Noticias
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/contacto" routerLinkActive="active">
+                        Contacto
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</header>

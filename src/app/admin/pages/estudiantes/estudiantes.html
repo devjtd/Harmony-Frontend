@@ -1,0 +1,159 @@
+<div class="main-content">
+    <h1 class="mb-4 text-harmony-title">Gestión de Clientes</h1>
+    <hr />
+
+    <div *ngIf="validationAlert" id="estudiantes-validationAlert" class="alert alert-warning alert-dismissible show"
+        role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <strong>Atención:</strong> Debes seleccionar un horario para cada taller elegido.
+        <button type="button" class="btn-close" (click)="validationAlert = false" aria-label="Close"></button>
+    </div>
+
+    <section id="registro-cliente" class="mb-5 p-4 border rounded shadow-sm registro-cliente">
+        <h3 class="text-harmony-title mb-4"><i class="bi bi-person-add me-2"></i> Registrar Nuevo Cliente</h3>
+        <form #registroForm="ngForm" (ngSubmit)="registrarCliente(registroForm)">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3 text-secondary">Datos Personales</h5>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre Completo</label>
+                        <input id="nombre" name="nombreCompleto" class="form-control" required
+                            [(ngModel)]="nuevoCliente.nombreCompleto" placeholder="Ej: Juan Pérez" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input id="email" name="correo" type="email" class="form-control" required
+                            [(ngModel)]="nuevoCliente.correo" placeholder="ejemplo@correo.com" />
+                    </div>
+                    <div class="mb-4">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input id="telefono" name="telefono" type="tel" class="form-control" required
+                            [(ngModel)]="nuevoCliente.telefono" placeholder="Ej: +51 921 340 064" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h5 class="mb-3 text-secondary">Selección de Talleres y Horarios</h5>
+                    <div class="mb-4 p-3 border rounded talleres-box">
+                        <p class="fw-bold mb-3 text-muted">Talleres a Inscribir:</p>
+                        <div *ngFor="let taller of talleres" class="form-check mb-2 d-flex align-items-center">
+                            <input class="form-check-input me-2" type="checkbox" [id]="'checkTaller' + taller.id"
+                                [(ngModel)]="taller.seleccionado" [name]="'tallerSelected' + taller.id"
+                                [disabled]="taller.horarios.length === 0" />
+                            <label class="form-check-label" [for]="'checkTaller' + taller.id"><span
+                                    [class.text-danger]="taller.horarios.length === 0">{{ taller.nombre }}</span><span
+                                    *ngIf="taller.horarios.length === 0" class="small text-danger fw-bold ms-2">(No hay
+                                    horarios disponibles)</span></label>
+                        </div>
+                    </div>
+
+                    <div id="scheduleContainer" class="mt-4">
+                        <div *ngFor="let taller of talleres" [id]="'scheduleTaller' + taller.id" class="card p-3 mb-3"
+                            [class.d-none]="!taller.seleccionado || taller.horarios.length === 0">
+                            <h6 class="card-title text-primary"><i class="bi bi-clock-fill me-2"></i>Horario para {{
+                                taller.nombre }}</h6>
+                            <p class="card-subtitle mb-2 text-muted small">Elige el horario semanal:</p>
+                            <select class="form-select" [disabled]="!taller.seleccionado"
+                                [(ngModel)]="taller.horarioSeleccionado" [name]="'horarioTaller' + taller.id">
+                                <option [ngValue]="undefined" disabled>Selecciona un horario</option>
+                                <option *ngFor="let horario of taller.horarios" [ngValue]="horario.id">{{
+                                    horario.diasDeClase }} - de {{ horario.horaInicio }} a {{ horario.horaFin }} (Prof.
+                                    {{ horario.profesor.nombreCompleto }} - Vacantes: {{ horario.vacantesDisponibles }})
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button class="btn btn-primary btn-lg" type="submit"><i class="bi bi-check-circle me-2"></i> Registrar
+                    Cliente</button>
+            </div>
+        </form>
+    </section>
+
+    <hr />
+
+    <section id="lista-clientes" class="mt-5">
+        <h3 class="text-harmony-title mb-4"><i class="bi bi-list-columns me-2"></i> Clientes Registrados</h3>
+        <div class="mb-3 d-flex">
+            <input type="text" class="form-control w-50" id="estudiantes-searchFilter"
+                placeholder="Buscar por nombre, correo o teléfono..." />
+            <button class="btn btn-secondary ms-2"><i class="bi bi-search"></i> Buscar</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre Completo</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Talleres Inscritos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientes">
+                        <td>{{ cliente.nombreCompleto }}</td>
+                        <td>{{ cliente.user.email }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>
+                            <div *ngIf="!cliente.inscripciones || cliente.inscripciones.length === 0"><span
+                                    class="text-muted small">No inscrito</span></div>
+                            <ng-container *ngFor="let inscripcion of cliente.inscripciones">
+                                <span class="badge bg-primary me-1 my-1">{{ inscripcion.horario.taller.nombre }} ({{
+                                    inscripcion.horario.diasDeClase }} {{ inscripcion.horario.horaInicio }}-{{
+                                    inscripcion.horario.horaFin }})</span>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal"
+                                data-bs-target="#estudiantes-editModal" (click)="openEditModal(cliente)"><i
+                                    class="bi bi-pencil"></i> Editar</button>
+                            <button class="btn btn-sm btn-outline-danger" (click)="confirmBajaSegura(cliente)"><i
+                                    class="bi bi-x-circle"></i> Baja</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<!-- single, namespaced modal -->
+<div class="modal fade" id="estudiantes-editModal" tabindex="-1" aria-labelledby="estudiantes-editModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="estudiantes-editModalLabel"><i class="bi bi-pencil-square me-2"></i> Editar
+                    Datos Básicos del Cliente</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form #editForm="ngForm" (ngSubmit)="editarCliente(editForm)">
+                <div class="modal-body">
+                    <input type="hidden" id="edit-cliente-id" name="id" [(ngModel)]="clienteAEditar.id">
+                    <input type="hidden" name="originalCorreo" [ngModel]="originalCorreo">
+                    <div class="alert alert-info small" role="alert">Al actualizar/editar el correo del cliente se
+                        generará una nueva contraseña temporal y se enviará un aviso de cambio a este nuevo correo.
+                    </div>
+                    <div class="mb-3"><label for="edit-nombre" class="form-label">Nombre Completo</label><input
+                            id="edit-nombre" name="nombre" class="form-control" required
+                            [(ngModel)]="clienteAEditar.nombre"></div>
+                    <div class="mb-3"><label for="edit-correo" class="form-label">Correo Electrónico</label><input
+                            id="edit-correo" name="correo" type="email" class="form-control" required
+                            [(ngModel)]="clienteAEditar.correo"></div>
+                    <div class="mb-3"><label for="edit-telefono" class="form-label">Teléfono</label><input
+                            id="edit-telefono" name="telefono" type="tel" class="form-control" required
+                            [(ngModel)]="clienteAEditar.telefono"></div>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cancelar</button><button type="submit" class="btn btn-primary"><i
+                            class="bi bi-save me-1"></i> Guardar Cambios</button></div>
+            </form>
+        </div>
+    </div>
+</div>

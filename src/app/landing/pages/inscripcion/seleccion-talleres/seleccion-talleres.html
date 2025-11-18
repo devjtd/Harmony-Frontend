@@ -1,0 +1,92 @@
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card p-4 shadow-sm mb-4" style="background-color: #f8f1e9;">
+
+            <h3 class="mb-4 text-primary"><i class="bi bi-calendar-event-fill me-2"></i>2. Selección de Talleres y
+                Horarios</h3>
+
+            @if (isLoading) {
+            <div class="alert alert-info text-center">Cargando talleres disponibles...</div>
+            } @else if (showError) {
+            <div class="alert alert-danger text-center">Error al cargar talleres. Por favor, recarga la página.</div>
+            } @else {
+
+            <div class="mb-4 p-3 border rounded schedule-section" style="background-color: #ffffff;">
+                <p class="fw-bold mb-3 text-muted">Marca los talleres a los que deseas inscribirte:</p>
+
+                @for (taller of talleres(); track taller.id) {
+                <div class="form-check mb-2 d-flex justify-content-between align-items-center">
+                    <div>
+                        <input class="form-check-input taller-checkbox" type="checkbox" [value]="taller.id"
+                            [id]="'checkTaller' + taller.id" [disabled]="taller.horarios.length === 0"
+                            (change)="toggleTaller(taller.id, $event)" [checked]="taller.seleccionado">
+
+                        <label class="form-check-label fw-medium" [for]="'checkTaller' + taller.id">
+                            <span>{{ taller.nombre }}</span>
+                            <span *ngIf="taller.horarios.length === 0" class="text-danger small ms-2">(No hay horarios
+                                disponibles)</span>
+                        </label>
+                    </div>
+
+                    <span class="badge bg-primary fs-6">
+                        S/ {{ taller.precio | number : '1.2-2' }}
+                    </span>
+                </div>
+                }
+
+                @if (talleres().length === 0) {
+                <div class="alert alert-warning mt-3">No hay talleres disponibles actualmente.</div>
+                }
+            </div>
+
+            <div id="scheduleContainer" class="mt-4">
+                @for (taller of talleres(); track taller.id) {
+                @if (taller.seleccionado) {
+                <div [id]="'scheduleTaller' + taller.id" class="schedule-section card p-3 mb-3">
+
+                    <h5 class="card-title text-primary"><i class="bi bi-clock-fill me-2"></i>Horario para
+                        <span>{{ taller.nombre }}</span>
+                    </h5>
+                    <p class="card-subtitle mb-2 text-muted small">Elige tu horario semanal:</p>
+
+                    @if (taller.horarios.length === 0) {
+                    <div class="alert alert-warning" role="alert">
+                        ⚠️ Actualmente no hay horarios disponibles para este taller.
+                    </div>
+                    } @else {
+                    <select class="form-select horario-select" [id]="'selectHorario' + taller.id"
+                        name="horarioTaller{{ taller.id }}" [ngModel]="taller.horarioSeleccionadoId"
+                        (ngModelChange)="updateHorario(taller.id, $event)" required>
+
+                        <option [ngValue]="null" disabled>Selecciona un horario</option>
+
+                        @for (horario of taller.horarios; track horario.id) {
+                        <option [ngValue]="horario.id">
+                            {{ horario.diasDeClase }} de {{ horario.horaInicio }} a {{ horario.horaFin }}
+                            (Prof. {{ horario.profesor.nombreCompleto }} - Vacantes: {{ horario.vacantesDisponibles }})
+                        </option>
+                        }
+                    </select>
+                    }
+                </div>
+                }
+                }
+            </div>
+
+            <div id="validationAlert" class="alert alert-danger mt-4" role="alert" [class.d-none]="isSelectionValid()">
+                ⚠️ Debes seleccionar al menos un taller con su horario disponible para continuar.
+            </div>
+
+            <hr class="my-4">
+
+            <div class="d-grid">
+                <button type="button" class="btn-formulario btn-lg" [disabled]="!isSelectionValid()"
+                    (click)="goToPago()">
+                    Continuar a Método de Pago (Total: S/ {{ totalPagar() | number : '1.2-2' }})
+                    <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+                </button>
+            </div>
+            }
+        </div>
+    </div>
+</div>

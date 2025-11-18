@@ -1,0 +1,44 @@
+<main>
+    <section class="seccion-hero" [style.backgroundImage]="'url(/portada1.jpg)'">
+        <div class="capa-hero"></div>
+        <div class="contenido-hero">
+            <h1 class="display-2 fw-bold">Descubre tu pasión</h1>
+            <p class="lead">Un lugar para crecer con la música.</p>
+        </div>
+    </section>
+
+    <section class="banner-negro text-center d-flex justify-content-center align-items-center">
+        <h2 class="display-4 fw-bold mb-0">¡Inscripciones abiertas!</h2>
+        <a routerLink="/inscripcion" class="btn-llamativo">
+            ¡Inscríbete Ahora!
+        </a>
+    </section>
+
+    <section class="container my-5">
+        <h2 class="text-center mb-5">Nuestros Talleres</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <div class="col" *ngFor="let taller of talleres">
+                <a routerLink="/talleres" class="text-decoration-none">
+                    <div class="card tarjeta-taller h-100">
+                        <img [src]="getStaticImageUrl(taller.imagenInicio)" class="card-img-top" [alt]="taller.nombre"> 
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">{{ taller.nombre }}</h5>
+
+                            <p class="card-text mb-1">
+                                Duración: <span>{{ taller.duracionSemanas }}</span> semanas
+                            </p>
+
+                            <p class="card-text mb-1">
+                                Clases por semana: <span>{{ taller.clasesPorSemana }}</span>
+                            </p>
+
+                            <p class="card-text fw-bold">
+                                Precio: <span>{{ taller.precio | currency:'PEN':'symbol':'1.2-2' }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
