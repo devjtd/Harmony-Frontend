@@ -336,7 +336,7 @@ export class Talleres implements OnInit {
 
         setTimeout(() => { this.successMessage = ''; }, 5000);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('❌ [TALLERES ANGULAR ERROR] Error al registrar horario:', err);
         console.error('❌ [TALLERES ANGULAR ERROR] Detalles:', err.error);
         this.errorMessage = err.error?.message || 'Error al registrar el horario';
@@ -429,7 +429,7 @@ export class Talleres implements OnInit {
 
         setTimeout(() => { this.successMessage = ''; }, 5000);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('❌ [TALLERES ANGULAR ERROR] Error al actualizar taller:', err);
         console.error('❌ [TALLERES ANGULAR ERROR] Status:', err.status);
         console.error('❌ [TALLERES ANGULAR ERROR] Detalles:', err.error);
@@ -502,7 +502,7 @@ export class Talleres implements OnInit {
 
         setTimeout(() => { this.successMessage = ''; }, 5000);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('❌ [TALLERES ANGULAR ERROR] Error al actualizar horario:', err);
         console.error('❌ [TALLERES ANGULAR ERROR] Detalles:', err.error);
         this.errorMessage = err.error?.message || 'Error al actualizar el horario';
@@ -526,7 +526,7 @@ export class Talleres implements OnInit {
 
           setTimeout(() => { this.successMessage = ''; }, 5000);
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('❌ [TALLERES ANGULAR ERROR] Error al eliminar horario:', err);
           this.errorMessage = err.error?.message || 'Error al eliminar el horario';
         }

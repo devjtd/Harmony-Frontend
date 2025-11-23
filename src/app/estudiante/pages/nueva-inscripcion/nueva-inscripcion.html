@@ -1,0 +1,103 @@
+<div class="container mt-4">
+    <h2 class="mb-4 text-harmony-title">Inscribirse en un Nuevo Taller</h2>
+
+    @if (isLoading) {
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+    }
+
+    @if (errorMessage) {
+    <div class="alert alert-danger">
+        {{ errorMessage }}
+    </div>
+    }
+
+    @if (!isLoading && !errorMessage) {
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <!-- SECCIÓN 1: SELECCIÓN DE TALLER Y HORARIO -->
+            @if (!mostrarFormularioPago) {
+            <div>
+                <div class="mb-3">
+                    <label class="form-label">Selecciona un Taller</label>
+                    <select class="form-select" [(ngModel)]="tallerSeleccionadoId"
+                        (change)="horarioSeleccionadoId = null">
+                        <option [ngValue]="null" disabled>-- Selecciona --</option>
+                        @for (taller of talleres; track taller.id) {
+                        <option [ngValue]="taller.id">
+                            {{ taller.nombre }} - S/ {{ taller.precio }}
+                        </option>
+                        }
+                    </select>
+                </div>
+
+                @if (tallerSeleccionadoId) {
+                <div class="mb-3">
+                    <label class="form-label">Selecciona un Horario</label>
+                    <select class="form-select" [(ngModel)]="horarioSeleccionadoId">
+                        <option [ngValue]="null" disabled>-- Selecciona --</option>
+                        @for (horario of horariosDisponibles; track horario.id) {
+                        <option [ngValue]="horario.id">
+                            {{ horario.diasDeClase }} {{ horario.horaInicio }}-{{ horario.horaFin }}
+                            (Prof. {{ horario.profesor?.nombreCompleto || 'Sin asignar' }})
+                        </option>
+                        }
+                    </select>
+                </div>
+                }
+
+                <div class="d-grid">
+                    <button class="btn btn-primary" (click)="iniciarProcesoPago()"
+                        [disabled]="!tallerSeleccionadoId || !horarioSeleccionadoId">
+                        Continuar al Pago
+                    </button>
+                </div>
+            </div>
+            }
+
+            <!-- SECCIÓN 2: FORMULARIO DE PAGO -->
+            @if (mostrarFormularioPago) {
+            <div>
+                <h4 class="mb-3 text-primary">Detalles de Pago</h4>
+                <div class="alert alert-info">
+                    <small>Ingrese los datos de su tarjeta para completar la inscripción.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Número de Tarjeta</label>
+                    <input type="text" class="form-control" [(ngModel)]="datosPago.numeroTarjeta"
+                        placeholder="0000 0000 0000 0000" maxlength="19">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Vencimiento (MM/YY)</label>
+                        <input type="text" class="form-control" [(ngModel)]="datosPago.fechaVencimiento"
+                            placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">CVV</label>
+                        <input type="password" class="form-control" [(ngModel)]="datosPago.cvv" placeholder="123"
+                            maxlength="4">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button class="btn btn-outline-secondary" (click)="cancelarPago()">
+                        Atrás
+                    </button>
+                    <button class="btn btn-success" (click)="inscribirse()" [disabled]="!validarPago()">
+                        Pagar e Inscribirse
+                    </button>
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+    }
+</div>

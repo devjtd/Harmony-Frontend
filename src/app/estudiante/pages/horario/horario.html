@@ -3,7 +3,8 @@
 
     <section id="horario" class="calendar-container">
         <h2 class="h3 mb-4 text-harmony-title">Tus Horarios de Taller</h2>
-        <p class="lead text-muted">Aquí puedes ver los horarios de tus clases de los talleres en los que estás inscrito.
+        <p class="lead text-muted">Aquí puedes ver los horarios de tus clases de los talleres en los que
+            estás inscrito.
         </p>
 
         <!-- Loading State -->
@@ -36,6 +37,7 @@
                         <th scope="col">Hora Inicio</th>
                         <th scope="col">Hora Fin</th>
                         <th scope="col">Profesor</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,9 +47,20 @@
                         <td>{{ formatHora(horario.horaInicio) }}</td>
                         <td>{{ formatHora(horario.horaFin) }}</td>
                         <td>{{ horario.profesor.nombreCompleto }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger" (click)="solicitarBaja(horario)">
+                                <i class="bi bi-exclamation-circle me-1"></i> Solicitar Baja
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="mt-4 text-center">
+            <button class="btn btn-primary" routerLink="/estudiante/nueva-inscripcion">
+                <i class="bi bi-plus-circle me-2"></i> Inscribirse a Nuevo Taller
+            </button>
         </div>
     </section>
 </div>

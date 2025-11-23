@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Layout } from './pages/layout/layout';
 import { Horario } from './pages/horario/horario';
 import { Contrasena } from './pages/contrasena/contrasena';
+import { NuevaInscripcionComponent } from './pages/nueva-inscripcion/nueva-inscripcion';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'horario',
         component: Horario
+      },
+      {
+        path: 'nueva-inscripcion',
+        component: NuevaInscripcionComponent
       },
       {
         path: 'contrasena',

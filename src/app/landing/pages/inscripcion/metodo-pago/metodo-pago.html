@@ -50,6 +50,7 @@
                                 <th scope="col">Taller</th>
                                 <th scope="col">Horario</th>
                                 <th scope="col" class="text-end">Precio</th>
+                                <th scope="col" class="text-center" style="width: 50px;"></th>
                             </tr>
                         </thead>
                         <tbody id="resumenBody">
@@ -70,6 +71,12 @@
                                 </td>
 
                                 <td class="text-end fw-medium">S/ {{ item.precio | number : '1.2-2' }}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-sm btn-outline-danger border-0"
+                                        (click)="eliminarTaller(item.id)" title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                             }
                         </tbody>
@@ -89,7 +96,8 @@
                 <div class="d-grid mt-3">
                     <button type="submit" class="btn-formulario btn-lg"
                         [disabled]="pagoForm.invalid || totalPagar() <= 0 || isLoading || !isSelectionValid()">
-                        {{ isLoading ? 'Procesando Pago...' : 'Pagar S/ ' + (totalPagar() | number : '1.2-2') + ' y Confirmar Inscripción' }}
+                        {{ isLoading ? 'Procesando Pago...' : 'Pagar S/ ' + (totalPagar() | number : '1.2-2') + ' y
+                        Confirmar Inscripción' }}
                     </button>
                 </div>
             </div>

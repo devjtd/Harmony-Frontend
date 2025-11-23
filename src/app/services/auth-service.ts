@@ -13,12 +13,14 @@ export interface AuthResponse {
   email: string;
   role: string;
   nombreCompleto?: string;
+  id?: number;
 }
 
 export interface UserInfo {
   email: string;
   role: string;
   nombreCompleto?: string;
+  id?: number;
 }
 
 @Injectable({
@@ -34,7 +36,7 @@ export class AuthService {
 
   // Signal para el estado de autenticación
   public isAuthenticated = signal<boolean>(this.hasToken());
-  
+
   // BehaviorSubject para el usuario actual
   private currentUserSubject = new BehaviorSubject<UserInfo | null>(this.getUserFromStorage());
   public currentUser$ = this.currentUserSubject.asObservable();
@@ -55,20 +57,21 @@ export class AuthService {
         console.log('[AUTH SERVICE SUCCESS] Login exitoso');
         console.log('[AUTH SERVICE] Token recibido');
         console.log('[AUTH SERVICE] Rol del usuario:', response.role);
-        
+
         // Guardar token y datos del usuario
         this.setToken(response.token);
-        
+
         const userInfo: UserInfo = {
           email: response.email,
           role: response.role,
-          nombreCompleto: response.nombreCompleto
+          nombreCompleto: response.nombreCompleto,
+          id: response.id
         };
-        
+
         this.setUserInfo(userInfo);
         this.currentUserSubject.next(userInfo);
         this.isAuthenticated.set(true);
-        
+
         console.log('[AUTH SERVICE] Datos de usuario guardados en localStorage');
       }),
       catchError(error => {
@@ -85,13 +88,13 @@ export class AuthService {
    */
   logout(): void {
     console.log('[AUTH SERVICE] Cerrando sesión del usuario');
-    
+
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.USER_KEY);
-    
+
     this.currentUserSubject.next(null);
     this.isAuthenticated.set(false);
-    
+
     console.log('[AUTH SERVICE] Sesión cerrada, redirigiendo a login');
     this.router.navigate(['/auth/login']);
   }

@@ -86,18 +86,18 @@ export class MetodoPago implements OnInit {
     this.inscripcionService.confirmarInscripcion(payload).subscribe({
       next: (response) => {
         console.log('[LOG METODO-PAGO] Inscripción exitosa. Response:', response);
-        
+
         // ✅ GUARDAR CREDENCIALES EN EL SERVICIO DE TRANSFERENCIA
         this.dataTransferService.setCredenciales({
           correo: response.correo,
           contrasenaTemporal: response.contrasenaTemporal
         });
-        
+
         console.log('[LOG METODO-PAGO] Credenciales guardadas en DataTransferService');
-        
+
         // Limpiar estado de inscripción
         this.inscripcionService.clearState();
-        
+
         // Navegar a confirmación
         this.router.navigate(['/confirmacion']);
       },
@@ -107,5 +107,16 @@ export class MetodoPago implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  eliminarTaller(tallerId: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar este taller de tu inscripción?')) {
+      this.inscripcionService.toggleTaller(tallerId, false);
+      // Si después de eliminar no queda nada, redirigir o mostrar mensaje
+      if (this.talleresSeleccionados().length === 0) {
+        alert('Has eliminado todos los talleres. Serás redirigido a la selección.');
+        this.router.navigate(['/inscripcion/talleres', this.inscripcionService.cliente()?.id]);
+      }
+    }
   }
 }

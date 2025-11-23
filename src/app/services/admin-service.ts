@@ -63,7 +63,7 @@ export class AdminService {
   deleteProfesor(id: number): Observable<any> {
     console.log('🔵 [ADMIN SERVICE] DELETE /api/admin/profesores/' + id);
     return this.http.delete(`${API_ADMIN_BASE}/profesores/${id}`);
-  } 
+  }
 
   // === TALLERES ===
   getTalleres(): Observable<TallerDTO[]> {
@@ -123,20 +123,14 @@ export class AdminService {
     return this.http.delete(`${API_ADMIN_BASE}/clientes/${id}`);
   }
 
-  // === HORARIOS ===
-  createHorario(params: HttpParams): Observable<any> {
-    console.log('🔵 [ADMIN SERVICE] POST /api/admin/horarios', params);
-    return this.http.post(`${API_ADMIN_BASE}/horarios`, null, { params });
+  addInscripcion(clienteId: number, horarioId: number): Observable<any> {
+    console.log(`🔵 [ADMIN SERVICE] POST /api/admin/clientes/${clienteId}/inscripciones`, { horarioId });
+    return this.http.post(`${API_ADMIN_BASE}/clientes/${clienteId}/inscripciones`, { horarioId });
   }
 
-  updateHorario(id: number, params: HttpParams): Observable<any> {
-    console.log('🔵 [ADMIN SERVICE] PUT /api/admin/horarios/' + id, params);
-    return this.http.put(`${API_ADMIN_BASE}/horarios/${id}`, null, { params });
-  }
-
-  deleteHorario(id: number): Observable<any> {
-    console.log('🔵 [ADMIN SERVICE] DELETE /api/admin/horarios/' + id);
-    return this.http.delete(`${API_ADMIN_BASE}/horarios/${id}`);
+  removeInscripcion(clienteId: number, horarioId: number): Observable<any> {
+    console.log(`🔵 [ADMIN SERVICE] DELETE /api/admin/clientes/${clienteId}/inscripciones/${horarioId}`);
+    return this.http.delete(`${API_ADMIN_BASE}/clientes/${clienteId}/inscripciones/${horarioId}`);
   }
 
   // === UPLOAD ===
@@ -151,5 +145,21 @@ export class AdminService {
   getImagesList(): Observable<any> {
     console.log('🔵 [ADMIN SERVICE] GET /api/upload/images-list');
     return this.http.get(`${API_UPLOAD_BASE}/images-list`);
+  }
+
+  // === HORARIOS ===
+  createHorario(payload: HttpParams): Observable<any> {
+    console.log('🔵 [ADMIN SERVICE] POST /api/admin/horarios', payload.toString());
+    return this.http.post(`${API_ADMIN_BASE}/horarios`, null, { params: payload });
+  }
+
+  updateHorario(id: number, payload: HttpParams): Observable<any> {
+    console.log('🔵 [ADMIN SERVICE] PUT /api/admin/horarios/' + id, payload.toString());
+    return this.http.put(`${API_ADMIN_BASE}/horarios/${id}`, null, { params: payload });
+  }
+
+  deleteHorario(id: number): Observable<any> {
+    console.log('🔵 [ADMIN SERVICE] DELETE /api/admin/horarios/' + id);
+    return this.http.delete(`${API_ADMIN_BASE}/horarios/${id}`);
   }
 }

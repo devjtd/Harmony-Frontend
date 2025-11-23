@@ -35,7 +35,7 @@ export interface TallerSeleccionadoConHorario extends Omit<Taller, 'horarios'> {
 
 export interface Cliente {
   id: number;
-  nombreCompleto: string; 
+  nombreCompleto: string;
   correo: string;
   telefono: string;
 }
@@ -194,5 +194,15 @@ export class InscripcionService {
     this.talleresDisponibles.set([]);
     this.datosPago.set(null);
     this.pasoActual.set(1);
+  }
+
+  inscribirEstudiante(payload: { clienteId: number, horarioId: number }): Observable<any> {
+    console.log('[LOG INSCRIPCION-SERVICE] POST /nueva con payload: ', payload);
+    return this.http.post(`${API_BASE_URL}/nueva`, payload);
+  }
+
+  obtenerInscripcionesPorCliente(clienteId: number): Observable<any[]> {
+    console.log('[LOG INSCRIPCION-SERVICE] GET /cliente/' + clienteId);
+    return this.http.get<any[]>(`${API_BASE_URL}/cliente/${clienteId}`);
   }
 }
