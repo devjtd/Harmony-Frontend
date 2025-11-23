@@ -18,6 +18,7 @@ interface Horario {
   fechaInicio: string;
   fechaFin: string;
   profesor?: Profesor;
+  finalizado: boolean;
 }
 
 interface Taller {
@@ -652,5 +653,19 @@ export class Talleres implements OnInit {
 
     // Si es ruta local, construir URL completa
     return `http://localhost:8080${url}`;
+  }
+
+  /**
+   * ✅ NUEVO: Obtiene los horarios activos (no finalizados)
+   */
+  getHorariosActivos(taller: Taller): Horario[] {
+    return taller.horarios.filter(h => !h.finalizado);
+  }
+
+  /**
+   * ✅ NUEVO: Obtiene los horarios finalizados
+   */
+  getHorariosFinalizados(taller: Taller): Horario[] {
+    return taller.horarios.filter(h => h.finalizado);
   }
 }

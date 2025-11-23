@@ -448,7 +448,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let horario of taller.horarios">
+                                <!-- ✅ HORARIOS ACTIVOS -->
+                                <tr *ngFor="let horario of getHorariosActivos(taller)">
                                     <td>{{ horario.id }}</td>
                                     <td>{{ horario.profesor?.nombreCompleto || 'Sin Asignar' }}</td>
                                     <td>{{ horario.diasDeClase }}</td>
@@ -469,12 +470,41 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr *ngIf="taller.horarios.length === 0">
-                                    <td colspan="8" class="text-center text-muted">No hay horarios registrados para este
+                                <tr *ngIf="getHorariosActivos(taller).length === 0">
+                                    <td colspan="8" class="text-center text-muted">No hay horarios activos para este
                                         taller</td>
                                 </tr>
                             </tbody>
                         </table>
+
+                        <!-- ✅ SECCIÓN DE HORARIOS FINALIZADOS -->
+                        <div *ngIf="getHorariosFinalizados(taller).length > 0" class="mt-4 p-3 bg-light border-top">
+                            <h6 class="text-secondary mb-3"><i class="bi bi-archive me-2"></i> Horarios Finalizados</h6>
+                            <table class="table table-sm table-bordered text-muted">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Profesor</th>
+                                        <th>Días</th>
+                                        <th>Horario</th>
+                                        <th>Inicio</th>
+                                        <th>Fin</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let horario of getHorariosFinalizados(taller)">
+                                        <td>{{ horario.id }}</td>
+                                        <td>{{ horario.profesor?.nombreCompleto || 'Sin Asignar' }}</td>
+                                        <td>{{ horario.diasDeClase }}</td>
+                                        <td>{{ horario.horaInicio }} - {{ horario.horaFin }}</td>
+                                        <td>{{ horario.fechaInicio }}</td>
+                                        <td>{{ horario.fechaFin }}</td>
+                                        <td><span class="badge bg-secondary">Finalizado</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
