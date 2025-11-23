@@ -23,12 +23,15 @@ export class Login {
 
   isLoading = false;
   errorMessage: string | null = null;
-  
+
   // Validación de campos
   emailInvalid = false;
   passwordInvalid = false;
   emailErrorMsg = '';
   passwordErrorMsg = '';
+
+  // Control de visibilidad de contraseña
+  showPassword = false;
 
   returnUrl: string = '/';
 
@@ -44,20 +47,20 @@ export class Login {
    */
   validateEmail(): boolean {
     const email = this.loginData.email.trim();
-    
+
     if (!email) {
       this.emailInvalid = true;
       this.emailErrorMsg = 'El correo electrónico es obligatorio';
       return false;
     }
-    
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
       this.emailInvalid = true;
       this.emailErrorMsg = 'El formato del correo no es válido';
       return false;
     }
-    
+
     this.emailInvalid = false;
     this.emailErrorMsg = '';
     return true;
@@ -68,19 +71,19 @@ export class Login {
    */
   validatePassword(): boolean {
     const password = this.loginData.password;
-    
+
     if (!password) {
       this.passwordInvalid = true;
       this.passwordErrorMsg = 'La contraseña es obligatoria';
       return false;
     }
-    
+
     if (password.length < 6) {
       this.passwordInvalid = true;
       this.passwordErrorMsg = 'La contraseña debe tener al menos 6 caracteres';
       return false;
     }
-    
+
     this.passwordInvalid = false;
     this.passwordErrorMsg = '';
     return true;
@@ -119,18 +122,18 @@ export class Login {
           console.log('[LOGIN SUCCESS] Autenticación exitosa');
           console.log('[LOGIN] Rol del usuario:', response.role);
           console.log('[LOGIN] Nombre:', response.nombreCompleto);
-          
+
           this.isLoading = false;
-          
+
           // Redirigir según el rol
           this.authService.redirectByRole();
         },
         error: (error) => {
           console.error('[LOGIN ERROR] Error en autenticación:', error);
           console.error('[LOGIN ERROR] Status:', error.status);
-          
+
           this.isLoading = false;
-          
+
           if (error.status === 401) {
             this.errorMessage = 'Email o contraseña incorrectos. Por favor, verifica tus credenciales.';
           } else if (error.status === 0) {
@@ -143,6 +146,13 @@ export class Login {
     } else {
       console.warn('[LOGIN] Formulario inválido');
     }
+  }
+
+  /**
+   * Alterna la visibilidad de la contraseña
+   */
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   /**

@@ -38,15 +38,20 @@
                     <label for="contrasena" class="form-label">
                         Contraseña <span class="text-danger">*</span>
                     </label>
-                    <input type="password" class="form-control" [class.is-invalid]="passwordInvalid" id="contrasena"
-                        name="password" placeholder="********" required [(ngModel)]="loginData.password"
-                        (blur)="validatePassword()" (input)="passwordInvalid = false; clearError()"
-                        [disabled]="isLoading">
-                    <div class="invalid-feedback" *ngIf="passwordInvalid">
-                        {{ passwordErrorMsg }}
+                    <div class="input-group">
+                        <input [type]="showPassword ? 'text' : 'password'" class="form-control"
+                            [class.is-invalid]="passwordInvalid" id="contrasena" name="password" placeholder="********"
+                            required [(ngModel)]="loginData.password" (blur)="validatePassword()"
+                            (input)="passwordInvalid = false; clearError()" [disabled]="isLoading">
+                        <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                            <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+                        </button>
+                        <div class="invalid-feedback" *ngIf="passwordInvalid">
+                            {{ passwordErrorMsg }}
+                        </div>
                     </div>
                 </div>
-                
+
                 <!-- Botón de Login -->
                 <div class="d-grid gap-2 mb-3">
                     <button type="submit" class="btn btn-primary btn-login"
