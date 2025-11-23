@@ -16,6 +16,7 @@ interface Horario {
   horaFin: string;
   vacantesDisponibles: number;
   fechaInicio: string;
+  fechaFin: string;
   profesor?: Profesor;
 }
 

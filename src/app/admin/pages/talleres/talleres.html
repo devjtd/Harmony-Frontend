@@ -445,6 +445,7 @@
                                     <th>Hora</th>
                                     <th>Vacantes</th>
                                     <th>Fecha de inicio</th>
+                                    <th>Fecha de Fin</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -462,6 +463,7 @@
                                         <span *ngIf="horario.fechaInicio > today" class="text-success fw-bold ms-1">(por
                                             iniciar)</span>
                                     </td>
+                                    <td>{{ horario.fechaFin }}</td>
                                     <td>
                                         <button type="button" (click)="eliminarHorario(horario.id)"
                                             class="btn btn-danger btn-sm" title="Eliminar Horario">
@@ -470,7 +472,7 @@
                                     </td>
                                 </tr>
                                 <tr *ngIf="taller.horarios.length === 0">
-                                    <td colspan="7" class="text-center text-muted">No hay horarios registrados para este
+                                    <td colspan="8" class="text-center text-muted">No hay horarios registrados para este
                                         taller</td>
                                 </tr>
                             </tbody>
