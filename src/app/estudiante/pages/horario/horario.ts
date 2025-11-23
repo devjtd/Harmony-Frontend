@@ -10,6 +10,8 @@ interface HorarioModel {
     diasDeClase: string;
     horaInicio: string;
     horaFin: string;
+    finalizado: boolean;
+    fechaFin: string;
     taller: {
         nombre: string;
     };
@@ -32,7 +34,8 @@ export class Horario implements OnInit {
     private inscripcionService = inject(InscripcionService);
 
     public userName: string = '';
-    public horarios: HorarioModel[] = [];
+    public horariosActivos: HorarioModel[] = [];
+    public horariosFinalizados: HorarioModel[] = [];
     public isLoading: boolean = true;
     public errorMessage: string | null = null;
 
@@ -55,7 +58,8 @@ export class Horario implements OnInit {
         this.http.get<HorarioModel[]>(this.API_URL).subscribe({
             next: (horarios) => {
                 console.log('[HORARIO ESTUDIANTE] Horarios cargados:', horarios.length);
-                this.horarios = horarios;
+                this.horariosActivos = horarios.filter(h => !h.finalizado);
+                this.horariosFinalizados = horarios.filter(h => h.finalizado);
                 this.isLoading = false;
             },
             error: (error) => {

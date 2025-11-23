@@ -21,40 +21,77 @@
             {{ errorMessage }}
         </div>
 
-        <!-- Empty State -->
-        <div *ngIf="!isLoading && !errorMessage && horarios.length === 0" class="alert alert-warning" role="alert">
+        <!-- No Schedules State (Overall) -->
+        <div *ngIf="!isLoading && !errorMessage && horariosActivos.length === 0 && horariosFinalizados.length === 0"
+            class="alert alert-warning" role="alert">
             <i class="bi bi-info-circle-fill me-2"></i>
-            Aún no tienes horarios asignados para esta semana.
+            Aún no tienes horarios asignados.
         </div>
 
-        <!-- Horarios Table -->
-        <div *ngIf="!isLoading && !errorMessage && horarios.length > 0" class="table-responsive">
-            <table class="table table-bordered table-striped text-center align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Taller</th>
-                        <th scope="col">Día(s)</th>
-                        <th scope="col">Hora Inicio</th>
-                        <th scope="col">Hora Fin</th>
-                        <th scope="col">Profesor</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let horario of horarios">
-                        <td>{{ horario.taller.nombre }}</td>
-                        <td>{{ horario.diasDeClase }}</td>
-                        <td>{{ formatHora(horario.horaInicio) }}</td>
-                        <td>{{ formatHora(horario.horaFin) }}</td>
-                        <td>{{ horario.profesor.nombreCompleto }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-danger" (click)="solicitarBaja(horario)">
-                                <i class="bi bi-exclamation-circle me-1"></i> Solicitar Baja
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Active Schedules -->
+        <div *ngIf="!isLoading && !errorMessage && horariosActivos.length > 0" class="mb-5">
+            <h3 class="h5 text-primary mb-3"><i class="bi bi-calendar-check me-2"></i>Horarios en Progreso</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Taller</th>
+                            <th scope="col">Día(s)</th>
+                            <th scope="col">Hora Inicio</th>
+                            <th scope="col">Hora Fin</th>
+                            <th scope="col">Profesor</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let horario of horariosActivos">
+                            <td>{{ horario.taller.nombre }}</td>
+                            <td>{{ horario.diasDeClase }}</td>
+                            <td>{{ formatHora(horario.horaInicio) }}</td>
+                            <td>{{ formatHora(horario.horaFin) }}</td>
+                            <td>{{ horario.profesor.nombreCompleto }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-danger" (click)="solicitarBaja(horario)">
+                                    <i class="bi bi-exclamation-circle me-1"></i> Solicitar Baja
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Finalized Schedules -->
+        <div *ngIf="!isLoading && !errorMessage && horariosFinalizados.length > 0" class="mb-5">
+            <h3 class="h5 text-secondary mb-3"><i class="bi bi-archive-fill me-2"></i>Horarios Finalizados</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-secondary text-center align-middle opacity-75">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th scope="col">Taller</th>
+                            <th scope="col">Día(s)</th>
+                            <th scope="col">Hora Inicio</th>
+                            <th scope="col">Hora Fin</th>
+                            <th scope="col">Profesor</th>
+                            <th scope="col">Fecha Fin</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let horario of horariosFinalizados">
+                            <td>{{ horario.taller.nombre }}</td>
+                            <td>{{ horario.diasDeClase }}</td>
+                            <td>{{ formatHora(horario.horaInicio) }}</td>
+                            <td>{{ formatHora(horario.horaFin) }}</td>
+                            <td>{{ horario.profesor.nombreCompleto }}</td>
+                            <td>{{ horario.fechaFin || 'N/A' }}</td>
+                            <td>
+                                <span class="badge bg-secondary">Finalizado</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="mt-4 text-center">
