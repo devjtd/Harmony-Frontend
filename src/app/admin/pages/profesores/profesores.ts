@@ -35,14 +35,13 @@ export class Profesores implements OnInit {
 
   profesorAEditar: Profesor | null = null;
   profesores: Profesor[] = [];
-  
+
   // ✅ Lista de imágenes disponibles
   imagenesDisponibles: ImageInfo[] = [];
-  
+
   successMessage: string = '';
   errorMessage: string = '';
 
-  // ✅ Control de carga de nueva imagen
   uploadingNewImage = false;
 
   constructor(private adminService: AdminService) { }
@@ -133,10 +132,10 @@ export class Profesores implements OnInit {
       next: (response: any) => {
         console.log('✅ [PROFESORES ANGULAR] Imagen subida exitosamente:', response);
         this.successMessage = `Foto "${response.filename}" subida exitosamente`;
-        
+
         // ✅ Recargar lista de imágenes
         this.cargarImagenesDisponibles();
-        
+
         this.uploadingNewImage = false;
 
         // Limpiar el input
@@ -156,7 +155,7 @@ export class Profesores implements OnInit {
   registrarProfesor(): void {
     console.log('🔵 [PROFESORES ANGULAR] Iniciando registro de profesor');
     console.log('📝 [PROFESORES ANGULAR] Datos del nuevo profesor:', this.nuevoProfesor);
-    
+
     this.errorMessage = '';
     this.successMessage = '';
 
@@ -181,7 +180,7 @@ export class Profesores implements OnInit {
       next: (response) => {
         console.log('✅ [PROFESORES ANGULAR SUCCESS] Profesor registrado:', response);
         this.successMessage = 'Profesor registrado exitosamente';
-        
+
         // Resetear formulario
         this.nuevoProfesor = {
           id: 0,
@@ -191,10 +190,10 @@ export class Profesores implements OnInit {
           fotoUrl: '',
           informacion: ''
         };
-        
+
         // Recargar lista
         this.cargarProfesores();
-        
+
         setTimeout(() => {
           this.successMessage = '';
         }, 5000);
@@ -214,7 +213,7 @@ export class Profesores implements OnInit {
 
   guardarEdicion(): void {
     console.log('🔵 [PROFESORES ANGULAR] Guardando edición de profesor');
-    
+
     if (this.profesorAEditar) {
       console.log('📤 [PROFESORES ANGULAR] Enviando actualización:', this.profesorAEditar);
 
@@ -233,7 +232,7 @@ export class Profesores implements OnInit {
           this.successMessage = 'Profesor actualizado exitosamente';
           this.cargarProfesores();
           this.profesorAEditar = null;
-          
+
           setTimeout(() => {
             this.successMessage = '';
           }, 5000);
@@ -249,16 +248,16 @@ export class Profesores implements OnInit {
   eliminarProfesor(profesorId: number): void {
     const profesor = this.profesores.find(p => p.id === profesorId);
     console.log('🔵 [PROFESORES ANGULAR] Confirmando eliminación de profesor:', profesorId);
-    
+
     if (profesor && confirm(`¿Estás seguro de que deseas eliminar a ${profesor.nombreCompleto}? Esta acción es irreversible.`)) {
       console.log('📤 [PROFESORES ANGULAR] Eliminando profesor ID:', profesorId);
-      
+
       this.adminService.deleteProfesor(profesorId).subscribe({
         next: (response) => {
           console.log('✅ [PROFESORES ANGULAR SUCCESS] Profesor eliminado:', response);
           this.successMessage = 'Profesor eliminado exitosamente';
           this.cargarProfesores();
-          
+
           setTimeout(() => {
             this.successMessage = '';
           }, 5000);

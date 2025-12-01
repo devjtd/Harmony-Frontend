@@ -28,7 +28,7 @@ export class DatosPersonales implements OnInit {
   nombreInvalid = false;
   emailInvalid = false;
   telefonoInvalid = false;
-  
+
   nombreErrorMsg = '';
   emailErrorMsg = '';
   telefonoErrorMsg = '';
@@ -51,33 +51,32 @@ export class DatosPersonales implements OnInit {
   // Validación del nombre
   validateNombre(): boolean {
     const nombre = this.datos.nombre.trim();
-    
+
     if (!nombre) {
       this.nombreInvalid = true;
       this.nombreErrorMsg = 'El nombre es obligatorio';
       return false;
     }
-    
+
     if (nombre.length < 3) {
       this.nombreInvalid = true;
       this.nombreErrorMsg = 'El nombre debe tener al menos 3 caracteres';
       return false;
     }
-    
+
     if (nombre.length > 100) {
       this.nombreInvalid = true;
       this.nombreErrorMsg = 'El nombre no puede exceder 100 caracteres';
       return false;
     }
-    
-    // Validar que contenga solo letras, espacios y caracteres latinos
+
     const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
     if (!nombreRegex.test(nombre)) {
       this.nombreInvalid = true;
       this.nombreErrorMsg = 'El nombre solo puede contener letras y espacios';
       return false;
     }
-    
+
     this.nombreInvalid = false;
     this.nombreErrorMsg = '';
     return true;
@@ -86,13 +85,13 @@ export class DatosPersonales implements OnInit {
   // Validación del email
   validateEmail(): boolean {
     const email = this.datos.email.trim();
-    
+
     if (!email) {
       this.emailInvalid = true;
       this.emailErrorMsg = 'El correo electrónico es obligatorio';
       return false;
     }
-    
+
     // Regex para validar formato de email
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
@@ -100,13 +99,13 @@ export class DatosPersonales implements OnInit {
       this.emailErrorMsg = 'El formato del correo electrónico no es válido';
       return false;
     }
-    
+
     if (email.length > 100) {
       this.emailInvalid = true;
       this.emailErrorMsg = 'El correo no puede exceder 100 caracteres';
       return false;
     }
-    
+
     this.emailInvalid = false;
     this.emailErrorMsg = '';
     return true;
@@ -115,16 +114,16 @@ export class DatosPersonales implements OnInit {
   // Validación del teléfono
   validateTelefono(): boolean {
     const telefono = this.datos.telefono.trim();
-    
+
     if (!telefono) {
       this.telefonoInvalid = true;
       this.telefonoErrorMsg = 'El teléfono es obligatorio';
       return false;
     }
-    
+
     // Remover espacios, guiones y paréntesis para validar solo números
     const telefonoLimpio = telefono.replace(/[\s\-\(\)]/g, '');
-    
+
     // Validar que contenga solo números y posiblemente un + al inicio
     const telefonoRegex = /^\+?\d+$/;
     if (!telefonoRegex.test(telefonoLimpio)) {
@@ -132,7 +131,7 @@ export class DatosPersonales implements OnInit {
       this.telefonoErrorMsg = 'El teléfono solo puede contener números, espacios, guiones y paréntesis';
       return false;
     }
-    
+
     // Validar longitud (entre 7 y 15 dígitos)
     const numDigitos = telefonoLimpio.replace(/\+/g, '').length;
     if (numDigitos < 7) {
@@ -140,13 +139,13 @@ export class DatosPersonales implements OnInit {
       this.telefonoErrorMsg = 'El teléfono debe tener al menos 7 dígitos';
       return false;
     }
-    
+
     if (numDigitos > 15) {
       this.telefonoInvalid = true;
       this.telefonoErrorMsg = 'El teléfono no puede tener más de 15 dígitos';
       return false;
     }
-    
+
     this.telefonoInvalid = false;
     this.telefonoErrorMsg = '';
     return true;
@@ -157,7 +156,7 @@ export class DatosPersonales implements OnInit {
     const nombreValido = this.validateNombre();
     const emailValido = this.validateEmail();
     const telefonoValido = this.validateTelefono();
-    
+
     return nombreValido && emailValido && telefonoValido;
   }
 
@@ -167,7 +166,7 @@ export class DatosPersonales implements OnInit {
     this.errorMessage = null;
 
     console.log('[LOG DATOS-PERSONALES] Iniciando validación del formulario');
-    
+
     // Validar todos los campos
     if (!this.validateAll()) {
       console.log('[LOG DATOS-PERSONALES] Validación falló');
