@@ -7,7 +7,6 @@ import localeEs from '@angular/common/locales/es';
 import { routes } from './app.routes';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
 
-// Registra los datos del locale español
 registerLocaleData(localeEs);
 
 export const appConfig: ApplicationConfig = {
@@ -15,11 +14,9 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    // Configurar HttpClient con el interceptor JWT
     provideHttpClient(
       withInterceptors([jwtInterceptor])
     ),
-    // Establecer el LOCALE_ID por defecto a 'es'
     { provide: LOCALE_ID, useValue: 'es' }
   ]
 };
